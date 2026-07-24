@@ -45,6 +45,6 @@ This tool is designed **exclusively for authorized security testing**. Users mus
 ```bash
 pkg update && pkg upgrade
 pkg install python git
-git clone https://github.com/YOUR_USERNAME/camoro.git
+[git clone https://github.com/YOUR_U](https://github.com/camorro5/camorro.git)
 cd camoro
 bash setup.sh
